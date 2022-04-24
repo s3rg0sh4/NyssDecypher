@@ -1,0 +1,43 @@
+﻿<Window x:Class="NyssDecypher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NyssDecypher"
+        mc:Ignorable="d"
+        Title="MainWindow" MinHeight="490" MaxHeight="490" Width="750" MinWidth="500" MaxWidth="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Button Content="Загрузить текст" Grid.Row="0" Grid.Column="1" Height="25" Width="240" HorizontalAlignment="Center" Click="Upload"/>
+
+        <Button Content="Расшифровать" Click="Decrypt" Grid.Row="2" Grid.Column="1" Height="25" Width="120" HorizontalAlignment="Left"/>
+        <Button Content="Зашифровать" Click="Encrypt" Grid.Row="2" Grid.Column="1" Height="25" Width="120" HorizontalAlignment="Right"/>
+        
+        <!--Можно запихать в доп окно-->
+        <Grid Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Width="240" Height="50">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Введите шифр" TextAlignment="Center" Width="100" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            <TextBox Name="CypherTB" Width="200" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+        
+
+        <TextBox Name="InputTB" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap"/>
+        <TextBox Name="OutputTB" Grid.Row="3" Grid.Column="1" IsReadOnly="True" TextWrapping="Wrap"/>
+
+        <Button Content="Сохранить текст" Grid.Row="4" Grid.Column="1" Height="25" Width="240" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Download"/>
+    </Grid>
+</Window>
