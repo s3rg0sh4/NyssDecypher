@@ -28,7 +28,7 @@ namespace NyssDecypher
 			InitializeComponent();
 		}
 
-		private static string Cypher(string input, string key, bool encypher)
+		public static string Cypher(string input, string key, bool encypher)
 		{
 			List<char> abc = new List<char>("абвгдеёжзийклмнопрстуфхцчшщъыьэюя");
 			int[] steps = new int[key.Length];
@@ -65,8 +65,24 @@ namespace NyssDecypher
 			return encrypted;
 		}
 
-		public void Encrypt(object sender, RoutedEventArgs e) => OutputTB.Text = Cypher(InputTB.Text, CypherTB.Text, true);
-		public void Decrypt(object sender, RoutedEventArgs e) => OutputTB.Text = Cypher(InputTB.Text, CypherTB.Text, false);
+		public void Encrypt(object sender, RoutedEventArgs e)
+		{
+			if (string.IsNullOrEmpty(CypherKeyTB.Text))
+			{
+				MessageBox.Show("А ключ то куда пропал?");
+				return;
+			}
+			OutputTB.Text = Cypher(InputTB.Text, CypherKeyTB.Text, true); 
+		}
+		public void Decrypt(object sender, RoutedEventArgs e)
+		{
+			if (string.IsNullOrEmpty(CypherKeyTB.Text))
+			{
+				MessageBox.Show("А ключ то куда пропал?");
+				return;
+			}
+			OutputTB.Text = Cypher(InputTB.Text, CypherKeyTB.Text, false); 
+		}
 
 		private void Upload(object sender, RoutedEventArgs e)
 		{
