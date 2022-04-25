@@ -28,7 +28,8 @@ namespace NyssDecypher
 			InitializeComponent();
 		}
 
-
+		//Вообще, планировал сделать метод Cypher() приватным, но раз нужны тесты пришлось сделать публичным
+		//есть мысли вынести в другой класс, хз как
 		public static string Cypher(string input, string key, bool encypher)
 		{
 			if (string.IsNullOrEmpty(input))

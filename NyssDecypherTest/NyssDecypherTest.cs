@@ -11,7 +11,8 @@ namespace NyssDecypherTest
 		[TestMethod]
 		public void CypherRusDecodeTest()
 		{
-			string result = MainWindow.Cypher("бщцфаирщри, бл ячъбиуъ щбюэсяёш гфуаа!!!", "скорпион", false);
+			string result = MainWindow.Cypher("бщцфаирщри, бл ячъбиуъ щбюэсяёш гфуаа!!!", 
+				"скорпион", false);
 			string expected = "поздравляю, ты получил исходный текст!!!";
 			Assert.AreEqual(expected, result);
 		}
@@ -19,7 +20,8 @@ namespace NyssDecypherTest
 		[TestMethod]
 		public void CypherRusEncodeTest()
 		{
-			string result = MainWindow.Cypher("поздравляю, ты получил исходный текст!!!", "скорпион", true);
+			string result = MainWindow.Cypher("поздравляю, ты получил исходный текст!!!", 
+				"скорпион", true);
 			string expected = "бщцфаирщри, бл ячъбиуъ щбюэсяёш гфуаа!!!";
 			Assert.AreEqual(expected, result);
 		}
