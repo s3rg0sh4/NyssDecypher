@@ -28,8 +28,16 @@ namespace NyssDecypher
 			InitializeComponent();
 		}
 
+
 		public static string Cypher(string input, string key, bool encypher)
 		{
+			if (string.IsNullOrEmpty(input))
+				return input;
+			if (string.IsNullOrEmpty(key))
+				return input;
+
+			//Знаки препинания, и прочие элементы не относящиеся к алфавиту сообщения не изменяются.
+			//В сообщении используется десятичная система счисления и русский алфавит.
 			List<char> abc = new List<char>("абвгдеёжзийклмнопрстуфхцчшщъыьэюя");
 			int[] steps = new int[key.Length];
 			for (int i = 0; i < key.Length; i++)
@@ -37,52 +45,33 @@ namespace NyssDecypher
 
 
 			int offset;
-			int j = 0;
+			int stepsCounter = 0;
 			string encrypted = "";
-			for (int i = 0; i < input.Length; i++)
+			for (int i = 0; i < input.Length; i++) //допиленный цезарь
 			{
-				offset = encypher ? steps[j] : (steps[j] * -1);
-				if (abc.Contains(Char.ToLower(input[i])))
+				offset = encypher ? steps[stepsCounter] : (steps[stepsCounter] * -1);
+				if (abc.Contains(char.ToLower(input[i])))
 				{
-					bool isUpper = Char.GetUnicodeCategory(input[i]) == UnicodeCategory.UppercaseLetter ? true : false;
+					bool isUpper = char.GetUnicodeCategory(input[i]) == UnicodeCategory.UppercaseLetter;
 
-					var abcI = abc.IndexOf(Char.ToLower(input[i]));
+					var abcI = abc.IndexOf(char.ToLower(input[i]));
 					if (abcI + offset < 0)
-						encrypted += isUpper ? Char.ToUpper(abc[abcI + offset + 33]) : abc[abcI + offset + 33];
+						encrypted += isUpper ? char.ToUpper(abc[abcI + offset + 33]) : abc[abcI + offset + 33];
 					else if (abcI + offset > 32)
-						encrypted += isUpper ? Char.ToUpper(abc[abcI + offset - 33]) : abc[abcI + offset - 33];
+						encrypted += isUpper ? char.ToUpper(abc[abcI + offset - 33]) : abc[abcI + offset - 33];
 					else
-						encrypted += isUpper ? Char.ToUpper(abc[abcI + offset]) : abc[abcI + offset];
+						encrypted += isUpper ? char.ToUpper(abc[abcI + offset]) : abc[abcI + offset];
 
-					j++;
+					stepsCounter++;
 				}
 				else { encrypted += input[i]; }
 
-				if (j >= steps.Length) { j = 0; }
-
+				if (stepsCounter >= steps.Length) { stepsCounter = 0; }
 			}
-
 			return encrypted;
 		}
-
-		public void Encrypt(object sender, RoutedEventArgs e)
-		{
-			if (string.IsNullOrEmpty(CypherKeyTB.Text))
-			{
-				MessageBox.Show("А ключ то куда пропал?");
-				return;
-			}
-			OutputTB.Text = Cypher(InputTB.Text, CypherKeyTB.Text, true); 
-		}
-		public void Decrypt(object sender, RoutedEventArgs e)
-		{
-			if (string.IsNullOrEmpty(CypherKeyTB.Text))
-			{
-				MessageBox.Show("А ключ то куда пропал?");
-				return;
-			}
-			OutputTB.Text = Cypher(InputTB.Text, CypherKeyTB.Text, false); 
-		}
+		public void Encrypt(object sender, RoutedEventArgs e) => OutputTB.Text = Cypher(InputTB.Text, CypherKeyTB.Text, true);
+		public void Decrypt(object sender, RoutedEventArgs e) => OutputTB.Text = Cypher(InputTB.Text, CypherKeyTB.Text, false);
 
 		private void Upload(object sender, RoutedEventArgs e)
 		{
@@ -105,18 +94,20 @@ namespace NyssDecypher
 
 		private void Download(object sender, RoutedEventArgs e)
 		{
-			if (string.IsNullOrEmpty(OutputTB.Text))
-			{
-				MessageBox.Show("А нечего сохранять, ага да!((");
-				return;
-			}
+			//Подумал, а в чем смысл не сохранять пустой файл
+			//if (string.IsNullOrEmpty(OutputTB.Text))
+			//{
+			//	MessageBox.Show("А нечего сохранять, ага да!((");
+			//	return;
+			//}
 
 			SaveFileDialog save = new SaveFileDialog
 			{
 				Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
 				FilterIndex = 1,
 				InitialDirectory = "c:\\",
-				RestoreDirectory = true
+				RestoreDirectory = true,
+				FileName = "Output"
 			};
 
 			if (save.ShowDialog() == true)
