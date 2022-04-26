@@ -69,7 +69,7 @@ namespace NyssDecypher
 		{
 			OpenFileDialog openFileDialog = new OpenFileDialog
 			{
-				Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
+				Filter = "txt files (*.txt)|*.txt",
 				RestoreDirectory = true,
 				InitialDirectory = "c:\\",
 				FilterIndex = 1
@@ -94,7 +94,7 @@ namespace NyssDecypher
 
 			SaveFileDialog save = new SaveFileDialog
 			{
-				Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
+				Filter = "txt files (*.txt)|*.txt",
 				FilterIndex = 1,
 				InitialDirectory = "c:\\",
 				RestoreDirectory = true,
