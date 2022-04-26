@@ -5,14 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO;
 using Microsoft.Win32;
 
@@ -29,8 +21,7 @@ namespace NyssDecypher
 		}
 
 		//Вообще, планировал сделать метод Cypher() приватным, но раз нужны тесты пришлось сделать публичным
-		//есть мысли вынести в другой класс, хз как
-		public static string Cypher(string input, string key, bool encypher)
+		public static string Cypher(string input, string key, bool encypher) //Основная логика шифрования
 		{
 			if (string.IsNullOrEmpty(input))
 				return input;
