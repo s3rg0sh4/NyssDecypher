@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NyssDecypher", "NyssDecypher\NyssDecypher.csproj", "{9DEC800C-6DA9-4D59-B5BF-D6C5FA99DFFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NyssDecypherTest", "NyssDecypherTest\NyssDecypherTest.csproj", "{3C80EF3E-2D4F-4370-B930-ADE117218326}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NyssDecypher.Test", "NyssDecypherTest\NyssDecypher.Test.csproj", "{3C80EF3E-2D4F-4370-B930-ADE117218326}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

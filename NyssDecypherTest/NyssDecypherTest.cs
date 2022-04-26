@@ -1,33 +1,29 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using NyssDecypher;
-
-namespace NyssDecypherTest
+namespace NyssDecypher.Tests
 {
 	[TestClass]
-	public class NyssDecypherTest
+	public class MainWindowTests
 	{
 		[TestMethod]
-		public void CypherRusDecodeTest()
+		public void Cypher_RusABC_Decrypt()
 		{
-			string result = MainWindow.Cypher("бщцфаирщри, бл ячъбиуъ щбюэсяёш гфуаа!!!", 
-				"скорпион", false);
-			string expected = "поздравляю, ты получил исходный текст!!!";
+			string result = MainWindow.Cypher("бщцфаирщри", "скорпион", false);
+			string expected = "поздравляю";
 			Assert.AreEqual(expected, result);
 		}
 
 		[TestMethod]
-		public void CypherRusEncodeTest()
+		public void Cypher_RusABC_Encrypt()
 		{
-			string result = MainWindow.Cypher("поздравляю, ты получил исходный текст!!!", 
-				"скорпион", true);
-			string expected = "бщцфаирщри, бл ячъбиуъ щбюэсяёш гфуаа!!!";
+			string result = MainWindow.Cypher("поздравляю", "скорпион", true);
+			string expected = "бщцфаирщри";
 			Assert.AreEqual(expected, result);
 		}
 
 		[TestMethod]
-		public void CypherMixDecodeTest()
+		public void Cypher_MixABC_Decrypt()
 		{
 			string result = MainWindow.Cypher("юё дявсы эасуьпык бгъуёюк р ссцкюфтжтю ъэуаьхтяуч т ься цд у юбюлянюччбюкоыъй а щбшэщнтэтпцчтю ьбхъи бтжшэьюлчч .Net, ющях вняэцшчп ш сьацыувэдд хсооз!", 
 				"скорпион", false);
@@ -36,7 +32,7 @@ namespace NyssDecypherTest
 		}
 
 		[TestMethod]
-		public void CypherMixEncodeTest()
+		public void Cypher_MixABC_Encrypt()
 		{
 			string result = MainWindow.Cypher("мы хотим пожелать успехов в дальнейшем погружении в мир ит и программирования с использованием стека технологий .Net, море терпения и интересных задач!", 
 				"скорпион", true);
@@ -45,7 +41,7 @@ namespace NyssDecypherTest
 		}
 
 		[TestMethod]
-		public void CypherEmptyInputTest()
+		public void Cypher_EmptyInput_Encrypt()
 		{
 			string result = MainWindow.Cypher("", "скорпион", true);
 			string expected = "";
@@ -53,11 +49,10 @@ namespace NyssDecypherTest
 		}
 
 		[TestMethod]
-		public void CypherEmptyKeyTest()
+		public void Cypher_EmptyKey_Encrypt()
 		{
-			string result = MainWindow.Cypher("мы хотим пожелать успехов в дальнейшем погружении в мир ит и программирования с использованием стека технологий .Net, море терпения и интересных задач!", 
-				"", true);
-			string expected = "мы хотим пожелать успехов в дальнейшем погружении в мир ит и программирования с использованием стека технологий .Net, море терпения и интересных задач!";
+			string result = MainWindow.Cypher("успехов", "", true);
+			string expected = "успехов";
 			Assert.AreEqual(expected, result);
 		}
 
