@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NyssDecypher"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="490" MaxHeight="490" Width="750" MinWidth="500" MaxWidth="1000">
+        Title="Vigenere cipher" MinHeight="490" MaxHeight="490" Width="750" MinWidth="500" MaxWidth="1000">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
