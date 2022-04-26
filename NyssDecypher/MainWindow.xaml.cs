@@ -83,7 +83,6 @@ namespace NyssDecypher
 				}
 			}
 		}
-
 		private void Download(object sender, RoutedEventArgs e)
 		{
 			//Подумал, а в чем смысл не сохранять пустой файл
