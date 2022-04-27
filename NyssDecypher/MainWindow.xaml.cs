@@ -6,7 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.IO;
+using System.IO.Compression;
+using System.Xml;
 using Microsoft.Win32;
+using System.Windows.Media;
 
 namespace NyssDecypher
 {
@@ -67,19 +70,32 @@ namespace NyssDecypher
 
 		private void Upload(object sender, RoutedEventArgs e)
 		{
-			OpenFileDialog openFileDialog = new OpenFileDialog
+			OpenFileDialog open = new OpenFileDialog
 			{
-				Filter = "txt files (*.txt)|*.txt",
+				Filter = "txt files (*.txt)|*.txt|docx files (*.docx)|*.docx|all files (*.*)|*.*",
 				RestoreDirectory = true,
 				InitialDirectory = "c:\\",
-				FilterIndex = 1
+				FilterIndex = 3
 			};
-			
-			if (openFileDialog.ShowDialog() == true)
+
+			if (open.ShowDialog() == true)
 			{
-				using (StreamReader reader = new StreamReader(openFileDialog.OpenFile(), Encoding.GetEncoding(1251)))
+				switch (open.FileName.Split('.')[1])
 				{
-					InputTB.Text = reader.ReadToEnd();
+					case "txt":
+						using (StreamReader reader = new StreamReader(open.OpenFile(), Encoding.GetEncoding(1251)))
+						{
+							InputTB.Text = reader.ReadToEnd();
+						}
+						break;
+					case "docx":
+						string extractDir = Path.GetDirectoryName(open.FileName) + "\\" + Path.GetFileName(open.FileName) + ".tmp";
+						ZipFile.ExtractToDirectory(open.FileName, extractDir);
+						XmlDocument xmldoc = new XmlDocument();
+						xmldoc.Load(extractDir + "\\word\\document.xml");
+						Directory.Delete(extractDir, true);
+						InputTB.Text = xmldoc.DocumentElement.InnerText;
+						break;
 				}
 			}
 		}
@@ -94,7 +110,7 @@ namespace NyssDecypher
 
 			SaveFileDialog save = new SaveFileDialog
 			{
-				Filter = "txt files (*.txt)|*.txt",
+				Filter = "txt files (*.txt)|*.txt|docx files (*.docx)|*.docx",
 				FilterIndex = 1,
 				InitialDirectory = "c:\\",
 				RestoreDirectory = true,
@@ -102,10 +118,17 @@ namespace NyssDecypher
 			};
 
 			if (save.ShowDialog() == true)
-			{
-				using (StreamWriter writer = new StreamWriter(save.OpenFile()))
-				{ 
-					writer.Write(OutputTB.Text); 
+{
+				switch (save.FileName.Split('.')[1])
+				{
+					case "txt":
+						using (StreamWriter writer = new StreamWriter(save.OpenFile()))
+						{
+							writer.Write(OutputTB.Text);
+						}
+						break;
+					case "docx":
+						break;
 				}
 			}
 		}
